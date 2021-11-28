@@ -18,7 +18,6 @@ namespace PublicInfo.Domain.Entities.Responses
         public int DocumentNumber { get; set; }
         public string Position { get; set; }
         public string MonthlyWage { get; set; }
-        public string Sac { get; set; }
         public string Remarks { get; set; }
     }
 }

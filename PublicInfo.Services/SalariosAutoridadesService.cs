@@ -2,6 +2,7 @@
 using PublicInfo.Domain.Entities.Csv;
 using PublicInfo.Domain.Entities.Filters;
 using PublicInfo.Domain.Entities.Responses;
+using PublicInfo.Domain.Helpers;
 using PublicInfo.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,10 @@ namespace PublicInfo.Services
             var records = Domain.Helpers.CsvHelper.GetAllRecordsFromCsv<SalariosAutoridadesCsvRecord>(url);
 
             if (!string.IsNullOrWhiteSpace(filter.FirstName))
-                records = records.Where(x => x.Nombre.Contains(filter.FirstName));
+                records = records.Where(x => x.Nombre.ToLower().Contains(filter.FirstName.ToLower()));
 
             if (!string.IsNullOrWhiteSpace(filter.LastName))
-                records = records.Where(x => x.Apellido.Contains(filter.LastName));
+                records = records.Where(x => x.Apellido.ToLower().Contains(filter.LastName.ToLower()));
 
             if (filter.MinMonthlyWage.HasValue)
                 records = records.Where(x => decimal.Parse(x.Asignacion_Mensual) >= filter.MinMonthlyWage);
@@ -32,10 +33,10 @@ namespace PublicInfo.Services
                 records = records.Where(x => int.Parse(x.NumMes) == filter.MonthNum);
 
             if (!string.IsNullOrWhiteSpace(filter.Position))
-                records = records.Where(x => x.Cargo.Contains(filter.Position));
+                records = records.Where(x => x.Cargo.ToLower().Contains(filter.Position.ToLower()));
 
             if(!string.IsNullOrWhiteSpace(filter.Section))
-                records = records.Where(x => x.Juridiccion.Contains(filter.Section));
+                records = records.Where(x => x.Juridiccion.ToLower().Contains(filter.Section.ToLower()));
 
             if(filter.Year.HasValue)
                 records = records.Where(x => int.Parse(x.Ano) == filter.Year);
@@ -51,11 +52,10 @@ namespace PublicInfo.Services
                     FirstName = item.Nombre,
                     LastName = item.Apellido,
                     Month = item.Mes,
-                    MonthlyWage = decimal.Parse(item.Asignacion_Mensual.Replace('.',',')).ToString("C", CultureInfo.CurrentCulture),
+                    MonthlyWage = CurrencyHelper.ParseCurrencyValueToString(item.Asignacion_Mensual),
                     MonthNum = int.Parse(item.NumMes),
                     Position = item.Cargo,
                     Remarks = item.Observaciones,
-                    Sac = item.Sac,
                     Section = item.Juridiccion,
                     Year = int.Parse(item.Ano)
                 });

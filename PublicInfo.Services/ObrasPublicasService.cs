@@ -2,6 +2,7 @@
 using PublicInfo.Domain.Entities.Csv;
 using PublicInfo.Domain.Entities.Filters;
 using PublicInfo.Domain.Entities.Responses;
+using PublicInfo.Domain.Helpers;
 using PublicInfo.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace PublicInfo.Services
                     Section = item.SectorNombre,
                     StartDate = DateTime.Parse(item.FechaInicioProyecto),
                     Status = item.EtapaObra,
-                    TotalAmount = decimal.Parse(item.MontoTotal.Replace('.', ',')).ToString("C", CultureInfo.CurrentCulture)
+                    TotalAmount = CurrencyHelper.ParseCurrencyValueToString(item.MontoTotal)
                 });
             }
 

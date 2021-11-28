@@ -36,7 +36,7 @@ namespace PublicInfo.API.Controllers
 
                 return Ok(result);
             }
-            catch(Exception)
+            catch(Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request");
             }
