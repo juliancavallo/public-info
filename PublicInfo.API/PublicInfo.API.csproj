@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>faa8c23c-01b5-4e36-b301-ed02fe8b29c7</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <AssemblyName>PublicInfo.API</AssemblyName>
+    <RootNamespace>PublicInfo.API</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PublicInfo.Domain\PublicInfo.Domain.csproj" />
+    <ProjectReference Include="..\PublicInfo.Services\PublicInfo.Services.csproj" />
+  </ItemGroup>
+
+</Project>
