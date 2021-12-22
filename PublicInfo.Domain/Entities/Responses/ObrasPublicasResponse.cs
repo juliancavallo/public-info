@@ -12,8 +12,8 @@ namespace PublicInfo.Domain.Entities.Responses
         public string Description { get; set; }
         public string TotalAmount { get; set; }
         public string Section { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string StartYear { get; set; }
+        public string EndYear { get; set; }
         public string Duration { get; set; }
         public string ProjectType { get; set; }
         public string Deparment { get; set; }

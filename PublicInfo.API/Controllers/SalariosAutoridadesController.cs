@@ -29,7 +29,7 @@ namespace PublicInfo.API.Controllers
             {
 
             pagedData.size = pagedData.size == 0 ? 10 : pagedData.size;
-            pagedData.size = Math.Min(pagedData.size, 20);
+            pagedData.size = Math.Min(pagedData.size, 50);
             pagedData.page = Math.Max(pagedData.page, 0);
 
             string url = service.GetDatasetCsvURL("jgm-asignacion-salarial-autoridades-superiores-poder-ejecutivo-nacional");

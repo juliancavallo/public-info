@@ -61,7 +61,11 @@ namespace PublicInfo.Services
                 });
             }
 
-            return list.Skip(pagedData.page * pagedData.size).Take(pagedData.size).ToList();
+            return list
+                .OrderByDescending(x => x.Year).ThenByDescending(x => x.MonthNum)
+                .Skip(pagedData.page * pagedData.size)
+                .Take(pagedData.size)
+                .ToList();
         }
 
     }

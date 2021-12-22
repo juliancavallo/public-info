@@ -21,8 +21,6 @@ namespace PublicInfo.Domain.Entities.Csv
             public string AvanceFinanciero { get; set; }
             public string AvanceFisico { get; set; }
             public string EntidadEjecutoraNombre { get; set; }
-            public string FechaInicioProyecto { get; set; }
-            public string FechaFinProyecto { get; set; }
             public string DuracionObrasDias { get; set; }
             public string ObjetivoGeneral { get; set; }
             public string TipoProyecto { get; set; }

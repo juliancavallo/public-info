@@ -30,10 +30,10 @@ namespace PublicInfo.Services
                 records = records.Where(x => decimal.Parse(x.MontoTotal) <= filter.TotalAmountMax.Value);
 
             if(filter.FromDate != DateTime.MinValue)
-                records = records.Where(x => DateTime.Parse(x.FechaInicioProyecto) >= filter.FromDate);
+                records = records.Where(x => ConvertYearToDate(x.FechaInicioAnio) >= filter.FromDate);
 
             if (filter.ToDate != DateTime.MinValue)
-                records = records.Where(x => DateTime.Parse(x.FechaFinProyecto) <= filter.ToDate);
+                records = records.Where(x => ConvertYearToDate(x.FechaFinAnio) <= filter.ToDate);
 
 
             var list = new List<ObrasPublicasResponse>();
@@ -46,20 +46,28 @@ namespace PublicInfo.Services
                     Deparment = item.NombreDepto,
                     Description = item.DescripicionFisica,
                     Duration = item.DuracionObrasDias,
-                    EndDate = DateTime.Parse(item.FechaFinProyecto),
+                    EndYear = item.FechaFinAnio,
                     ProjectName = item.NombreObra,
                     ProjectType = item.TipoProyecto,
                     ProjectUrl = item.Url_perfil_obra,
                     Province = item.NombreProvincia,
                     Section = item.SectorNombre,
-                    StartDate = DateTime.Parse(item.FechaInicioProyecto),
+                    StartYear = item.FechaInicioAnio,
                     Status = item.EtapaObra,
                     TotalAmount = CurrencyHelper.ParseCurrencyValueToString(item.MontoTotal)
                 });
             }
 
-            return list.Skip(pagedData.page * pagedData.size).Take(pagedData.size).ToList();
+            return list
+                .OrderByDescending(x => x.StartYear)
+                .Skip(pagedData.page * pagedData.size)
+                .Take(pagedData.size)
+                .ToList();
         }
 
+        private DateTime ConvertYearToDate(string year)
+        {
+            return new DateTime(Convert.ToInt32(year), 1, 1);
+        }
     }
 }
