@@ -14,7 +14,7 @@ namespace PublicInfo.Domain.Helpers
         {
             WebClient web = new WebClient();
             Stream stream = web.OpenRead(url);
-            StreamReader reader = new StreamReader(stream);
+            StreamReader reader = new StreamReader(stream, System.Text.Encoding.Latin1);
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
