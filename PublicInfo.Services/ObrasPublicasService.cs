@@ -42,24 +42,31 @@ namespace PublicInfo.Services
             {
                 list.Add(new ObrasPublicasResponse()
                 {
-                    CurrencyType = item.TipoMoneda,
-                    Deparment = item.NombreDepto,
-                    Description = item.DescripicionFisica,
-                    Duration = item.DuracionObrasDias,
-                    EndYear = item.FechaFinAnio,
-                    ProjectName = item.NombreObra,
-                    ProjectType = item.TipoProyecto,
-                    ProjectUrl = item.Url_perfil_obra,
-                    Province = item.NombreProvincia,
-                    Section = item.SectorNombre,
-                    StartYear = item.FechaInicioAnio,
-                    Status = item.EtapaObra,
-                    TotalAmount = CurrencyHelper.ParseCurrencyValueToString(item.MontoTotal)
+                    Header = new ObrasPublicasHeaderResponse()
+                    {
+                        ProjectName = item.NombreObra,
+                        TotalAmount = CurrencyHelper.ParseCurrencyValueToString(item.MontoTotal),
+                        Province = item.NombreProvincia,
+                        Deparment = item.NombreDepto,
+                    },
+                    Detail = new ObrasPublicasDetailResponse()
+                    {
+                        CurrencyType = item.TipoMoneda,
+                        Description = item.DescripicionFisica,
+                        Duration = item.DuracionObrasDias,
+                        EndYear = item.FechaFinAnio,
+                        ProjectType = item.TipoProyecto,
+                        ProjectUrl = item.Url_perfil_obra,
+                        Section = item.SectorNombre,
+                        StartYear = item.FechaInicioAnio,
+                        Status = item.EtapaObra,
+                    }
+                    
                 });
             }
 
             return list
-                .OrderByDescending(x => x.StartYear)
+                .OrderByDescending(x => x.Detail.StartYear)
                 .Skip(pagedData.page * pagedData.size)
                 .Take(pagedData.size)
                 .ToList();

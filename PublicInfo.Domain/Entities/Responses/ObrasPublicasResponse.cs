@@ -8,18 +8,8 @@ namespace PublicInfo.Domain.Entities.Responses
 {
     public class ObrasPublicasResponse
     {
-        public string ProjectName { get; set; }
-        public string Description { get; set; }
-        public string TotalAmount { get; set; }
-        public string Section { get; set; }
-        public string StartYear { get; set; }
-        public string EndYear { get; set; }
-        public string Duration { get; set; }
-        public string ProjectType { get; set; }
-        public string Deparment { get; set; }
-        public string Province { get; set; }
-        public string Status { get; set; }
-        public string CurrencyType { get; set; }
-        public string ProjectUrl { get; set; }
+        public ObrasPublicasHeaderResponse Header { get; set; }
+
+        public ObrasPublicasDetailResponse Detail { get; set; }
     }
 }
