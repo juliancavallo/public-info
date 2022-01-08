@@ -7,6 +7,6 @@ namespace PublicInfo.Domain.Services
 {
     public interface IObrasPublicasService
     {
-        public List<ObrasPublicasResponse> Get(string url, PagedData pagedData, ObrasPublicasFilter filter);
+        public ObrasPublicasResponse Get(string url, PagedData pagedData, ObrasPublicasFilter filter);
     }
 }

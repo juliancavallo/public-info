@@ -13,7 +13,7 @@ namespace PublicInfo.Services
 {
     public class ObrasPublicasService : IObrasPublicasService
     {
-        public List<ObrasPublicasResponse> Get(string url, PagedData pagedData, ObrasPublicasFilter filter)
+        public ObrasPublicasResponse Get(string url, PagedData pagedData, ObrasPublicasFilter filter)
         {
             var records = Domain.Helpers.CsvHelper.GetAllRecordsFromCsv<ObrasPublicasCsvRecord>(url);
 
@@ -36,11 +36,11 @@ namespace PublicInfo.Services
                 records = records.Where(x => ConvertYearToDate(x.FechaFinAnio) <= filter.ToDate);
 
 
-            var list = new List<ObrasPublicasResponse>();
+            var list = new List<ObrasPublicasResponseItem>();
 
             foreach (var item in records)
             {
-                list.Add(new ObrasPublicasResponse()
+                list.Add(new ObrasPublicasResponseItem()
                 {
                     Header = new ObrasPublicasHeaderResponse()
                     {
@@ -65,11 +65,15 @@ namespace PublicInfo.Services
                 });
             }
 
-            return list
-                .OrderByDescending(x => x.Detail.StartYear)
-                .Skip(pagedData.page * pagedData.size)
-                .Take(pagedData.size)
-                .ToList();
+            return new ObrasPublicasResponse()
+            {
+                Items = list
+                    .OrderByDescending(x => x.Detail.StartYear)
+                    .Skip(pagedData.page * pagedData.size)
+                    .Take(pagedData.size)
+                    .ToList(),
+                pages = (int)Math.Ceiling((decimal)(list.Count / pagedData.size))
+            };
         }
 
         private DateTime ConvertYearToDate(string year)

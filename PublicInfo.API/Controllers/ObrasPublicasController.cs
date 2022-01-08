@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PublicInfo.Domain.Entities;
 using PublicInfo.Domain.Entities.Filters;
+using PublicInfo.Domain.Entities.Responses;
 using PublicInfo.Domain.Services;
 using System;
 using System.Globalization;
@@ -23,7 +24,7 @@ namespace PublicInfo.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] ObrasPublicasFilter filter, [FromQuery] PagedData pagedData)
+        public ActionResult<ObrasPublicasResponse> Get([FromQuery] ObrasPublicasFilter filter, [FromQuery] PagedData pagedData)
         {
             try
             {
