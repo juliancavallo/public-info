@@ -35,6 +35,8 @@ namespace PublicInfo.Services
             if (filter.ToDate != DateTime.MinValue)
                 records = records.Where(x => ConvertYearToDate(x.FechaFinAnio) <= filter.ToDate);
 
+            if (!string.IsNullOrWhiteSpace(filter.Description))
+                records = records.Where(x => x.DescripicionFisica.Contains(filter.Description) || x.NombreObra.Contains(filter.Description));
 
             var list = new List<ObrasPublicasResponseItem>();
 

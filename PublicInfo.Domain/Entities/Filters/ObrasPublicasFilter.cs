@@ -14,5 +14,6 @@ namespace PublicInfo.Domain.Entities.Filters
         public DateTime ToDate { get; set; }
         public decimal? TotalAmountMin { get; set; }
         public decimal? TotalAmountMax { get; set; }
+        public string Description { get; set; }
     }
 }
