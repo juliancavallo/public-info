@@ -11,6 +11,6 @@ namespace PublicInfo.Domain.Entities.Responses
         public string ProjectName { get; set; }
         public string TotalAmount { get; set; }
         public string Province { get; set; }
-        public string Deparment { get; set; }
+        public string Department { get; set; }
     }
 }

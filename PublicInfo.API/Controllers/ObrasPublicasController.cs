@@ -31,6 +31,8 @@ namespace PublicInfo.API.Controllers
                 pagedData.size = pagedData.size == 0 ? 10 : pagedData.size;
                 pagedData.size = Math.Min(pagedData.size, 50);
                 pagedData.page = Math.Max(pagedData.page, 0);
+                pagedData.sord = string.IsNullOrWhiteSpace(pagedData.sord) ? "asc" : pagedData.sord;
+                pagedData.sidx = string.IsNullOrWhiteSpace(pagedData.sidx) ? "project" : pagedData.sidx;
 
                 string url = service.GetDatasetCsvURL("obras-mapa-inversiones-argentina");
                 var result = obrasPublicasService.Get(url, pagedData, filter);

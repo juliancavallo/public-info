@@ -10,5 +10,7 @@ namespace PublicInfo.Domain.Entities
     {
         public int page { get; set; }
         public int size { get; set; }
+        public string sord { get; set; }
+        public string sidx { get; set; }
     }
 }

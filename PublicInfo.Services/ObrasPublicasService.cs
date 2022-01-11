@@ -49,7 +49,7 @@ namespace PublicInfo.Services
                         ProjectName = item.NombreObra,
                         TotalAmount = CurrencyHelper.ParseCurrencyValueToString(item.MontoTotal),
                         Province = item.NombreProvincia,
-                        Deparment = item.NombreDepto,
+                        Department = item.NombreDepto,
                     },
                     Detail = new ObrasPublicasDetailResponse()
                     {
@@ -67,10 +67,11 @@ namespace PublicInfo.Services
                 });
             }
 
+
             return new ObrasPublicasResponse()
             {
-                Items = list
-                    .OrderByDescending(x => x.Detail.StartYear)
+                Items = 
+                    this.Sort(pagedData.sidx, pagedData.sord, list)
                     .Skip(pagedData.page * pagedData.size)
                     .Take(pagedData.size)
                     .ToList(),
@@ -81,6 +82,44 @@ namespace PublicInfo.Services
         private DateTime ConvertYearToDate(string year)
         {
             return new DateTime(Convert.ToInt32(year), 1, 1);
+        }
+
+        private IOrderedEnumerable<ObrasPublicasResponseItem> Sort(string sidx, string sord, List<ObrasPublicasResponseItem> list)
+        {
+            IOrderedEnumerable<ObrasPublicasResponseItem> result;
+            switch (sidx)
+            {
+                case ObrasPublicasSidx.PROJECT:
+                    if (sord == "asc")
+                        result = list.OrderBy(x => x.Header.ProjectName);
+                    else
+                        result = list.OrderByDescending(x => x.Header.ProjectName);
+                    break;
+
+                case ObrasPublicasSidx.TOTAL_AMOUNT:
+                    if (sord == "asc")
+                        result = list.OrderBy(x => decimal.Parse(x.Header.TotalAmount.Replace("$", "").Replace(".", "").Trim()));
+                    else
+                        result = list.OrderByDescending(x => decimal.Parse(x.Header.TotalAmount.Replace("$", "").Replace(".", "").Trim()));
+                    break;
+
+                case ObrasPublicasSidx.DEPARTMENT:
+                    if (sord == "asc")
+                        result = list.OrderBy(x => x.Header.Department);
+                    else
+                        result = list.OrderByDescending(x => x.Header.Department);
+                    break;
+
+                case ObrasPublicasSidx.PROVINCE:
+                default:
+                    if (sord == "asc")
+                        result = list.OrderBy(x => x.Header.Province);
+                    else
+                        result = list.OrderByDescending(x => x.Header.Province);
+                    break;
+            }
+
+            return result;
         }
     }
 }
