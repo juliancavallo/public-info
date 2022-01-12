@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace PublicInfo.Domain.Entities.Responses
 {
-    public class SalaryResponse
+    public class SalaryResponseItem
     {
-        public List<SalaryResponseItem> Items { get; set; }
-        public int pages { get; set; }
+        public SalaryHeaderResponse Header { get; set; }
+
+        public SalaryDetailResponse Detail { get; set; }
     }
 }

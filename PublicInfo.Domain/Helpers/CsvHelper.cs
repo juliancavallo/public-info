@@ -10,11 +10,11 @@ namespace PublicInfo.Domain.Helpers
 {
     public class CsvHelper
     {
-        public static IEnumerable<T> GetAllRecordsFromCsv<T>(string url) where T : CsvRecord
+        public static IEnumerable<T> GetAllRecordsFromCsv<T>(string url, System.Text.Encoding encoding) where T : CsvRecord
         {
             WebClient web = new WebClient();
             Stream stream = web.OpenRead(url);
-            StreamReader reader = new StreamReader(stream, System.Text.Encoding.Latin1);
+            StreamReader reader = new StreamReader(stream, encoding);
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {

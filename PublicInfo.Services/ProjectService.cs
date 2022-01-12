@@ -15,7 +15,7 @@ namespace PublicInfo.Services
     {
         public ProjectResponse Get(string url, PagedData pagedData, ProjectFilter filter)
         {
-            var records = Domain.Helpers.CsvHelper.GetAllRecordsFromCsv<ProjectCsvRecord>(url);
+            var records = Domain.Helpers.CsvHelper.GetAllRecordsFromCsv<ProjectCsvRecord>(url, System.Text.Encoding.Latin1);
 
             if (!string.IsNullOrWhiteSpace(filter.Province))
                 records = records.Where(x => x.NombreProvincia.ToLower().Contains(filter.Province.ToLower()));

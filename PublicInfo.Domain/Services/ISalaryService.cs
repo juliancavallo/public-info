@@ -7,6 +7,6 @@ namespace PublicInfo.Domain.Services
 {
     public interface ISalaryService
     {
-        public List<SalaryResponse> Get(string url, PagedData pagedData, SalaryFilter filter);
+        public SalaryResponse Get(string url, PagedData pagedData, SalaryFilter filter);
     }
 }

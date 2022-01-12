@@ -2,7 +2,7 @@
 
 namespace PublicInfo.Domain.Entities.Csv
 {
-    public class SalariosAutoridadesCsvRecord : CsvRecord
+    public class SalaryCsvRecord : CsvRecord
     {
         [Name("Año")]
         public string Ano { get; set; }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PublicInfo.Domain.Entities;
 using PublicInfo.Domain.Entities.Filters;
+using PublicInfo.Domain.Entities.Responses;
 using PublicInfo.Domain.Services;
 using System;
 using System.Globalization;
@@ -23,19 +24,21 @@ namespace PublicInfo.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] SalaryFilter filter, [FromQuery] PagedData pagedData)
+        public ActionResult<SalaryResponse> Get([FromQuery] SalaryFilter filter, [FromQuery] PagedData pagedData)
         {
             try
             {
 
-            pagedData.size = pagedData.size == 0 ? 10 : pagedData.size;
-            pagedData.size = Math.Min(pagedData.size, 50);
-            pagedData.page = Math.Max(pagedData.page, 0);
+                pagedData.size = pagedData.size == 0 ? 10 : pagedData.size;
+                pagedData.size = Math.Min(pagedData.size, 50);
+                pagedData.page = Math.Max(pagedData.page, 0);
+                pagedData.sord = string.IsNullOrWhiteSpace(pagedData.sord) ? "asc" : pagedData.sord;
+                pagedData.sidx = string.IsNullOrWhiteSpace(pagedData.sidx) ? "year" : pagedData.sidx;
 
-            string url = service.GetDatasetCsvURL("jgm-asignacion-salarial-autoridades-superiores-poder-ejecutivo-nacional");
-            var result = salaryService.Get(url, pagedData, filter);
+                string url = service.GetDatasetCsvURL("jgm-asignacion-salarial-autoridades-superiores-poder-ejecutivo-nacional");
+                var result = salaryService.Get(url, pagedData, filter);
 
-            return Ok(result);
+                return Ok(result);
             }
             catch(Exception)
             {
