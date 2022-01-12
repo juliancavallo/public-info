@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace PublicInfo.Domain.Services
 {
-    public interface IObrasPublicasService
+    public interface IProjectService
     {
-        public ObrasPublicasResponse Get(string url, PagedData pagedData, ObrasPublicasFilter filter);
+        public ProjectResponse Get(string url, PagedData pagedData, ProjectFilter filter);
     }
 }

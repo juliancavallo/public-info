@@ -12,18 +12,18 @@ namespace PublicInfo.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SalariosAutoridadesController : ControllerBase
+    public class SalariesController : ControllerBase
     {
         private readonly IGovernmentAPIService service;
-        private readonly ISalariosAutoridadesService salariosAutoridadesService;
-        public SalariosAutoridadesController(IGovernmentAPIService service, ISalariosAutoridadesService salariosAutoridadesService)
+        private readonly ISalaryService salaryService;
+        public SalariesController(IGovernmentAPIService service, ISalaryService salaryService)
         {
             this.service = service;
-            this.salariosAutoridadesService = salariosAutoridadesService;
+            this.salaryService = salaryService;
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] SalariosAutoridadesFilter filter, [FromQuery] PagedData pagedData)
+        public IActionResult Get([FromQuery] SalaryFilter filter, [FromQuery] PagedData pagedData)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace PublicInfo.API.Controllers
             pagedData.page = Math.Max(pagedData.page, 0);
 
             string url = service.GetDatasetCsvURL("jgm-asignacion-salarial-autoridades-superiores-poder-ejecutivo-nacional");
-            var result = salariosAutoridadesService.Get(url, pagedData, filter);
+            var result = salaryService.Get(url, pagedData, filter);
 
             return Ok(result);
             }

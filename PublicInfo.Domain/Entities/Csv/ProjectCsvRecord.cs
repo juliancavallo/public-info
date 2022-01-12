@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PublicInfo.Domain.Entities.Csv
 {
-    public class ObrasPublicasCsvRecord : CsvRecord
+    public class ProjectCsvRecord : CsvRecord
     {   
             public string IdProyecto { get; set; }
             public string NumeroObra { get; set; }

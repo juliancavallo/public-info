@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PublicInfo.Domain.Entities.Filters
 {
-    public class ObrasPublicasSidx
+    public class ProjectSidx
     {
         public const string PROJECT = "project";
         public const string TOTAL_AMOUNT = "totalAmount";

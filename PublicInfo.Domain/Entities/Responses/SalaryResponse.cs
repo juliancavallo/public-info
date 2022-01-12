@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PublicInfo.Domain.Entities.Responses
 {
-    public class SalariosAutoridadesResponse
+    public class SalaryResponse
     {
         public int Year { get; set; }
         public int MonthNum { get; set; }

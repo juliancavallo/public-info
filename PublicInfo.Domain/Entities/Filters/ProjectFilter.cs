@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PublicInfo.Domain.Entities.Filters
 {
-    public class ObrasPublicasFilter
+    public class ProjectFilter
     {
         public string Province { get; set; }
         public string Department { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PublicInfo.Domain.Entities.Responses
 {
-    public class ObrasPublicasDetailResponse
+    public class ProjectDetailResponse
     {
         public string Description { get; set; }
         public string Section { get; set; }

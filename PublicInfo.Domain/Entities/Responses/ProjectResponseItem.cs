@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PublicInfo.Domain.Entities.Responses
 {
-    public class ObrasPublicasResponseItem
+    public class ProjectResponseItem
     {
-        public ObrasPublicasHeaderResponse Header { get; set; }
+        public ProjectHeaderResponse Header { get; set; }
 
-        public ObrasPublicasDetailResponse Detail { get; set; }
+        public ProjectDetailResponse Detail { get; set; }
     }
 }

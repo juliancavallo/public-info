@@ -11,9 +11,9 @@ using System.Linq;
 
 namespace PublicInfo.Services
 {
-    public class SalariosAutoridadesService : ISalariosAutoridadesService
+    public class SalaryService : ISalaryService
     {
-        public List<SalariosAutoridadesResponse> Get(string url, PagedData pagedData, SalariosAutoridadesFilter filter)
+        public List<SalaryResponse> Get(string url, PagedData pagedData, SalaryFilter filter)
         {
             var records = Domain.Helpers.CsvHelper.GetAllRecordsFromCsv<SalariosAutoridadesCsvRecord>(url);
 
@@ -41,11 +41,11 @@ namespace PublicInfo.Services
             if(filter.Year.HasValue)
                 records = records.Where(x => int.Parse(x.Ano) == filter.Year);
 
-            var list = new List<SalariosAutoridadesResponse>();
+            var list = new List<SalaryResponse>();
 
             foreach (var item in records)
             {
-                list.Add(new SalariosAutoridadesResponse()
+                list.Add(new SalaryResponse()
                 {
                     DocumentNumber = int.Parse(item.NumDocumento),
                     DocumentType = item.Tipo_documento,

@@ -30,12 +30,12 @@ namespace PublicInfo.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IGovernmentAPIService, GovernmentAPIService>();
-            services.AddScoped<IObrasPublicasService, ObrasPublicasService>();
-            services.AddScoped<ISalariosAutoridadesService, SalariosAutoridadesService>();
+            services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<ISalaryService, SalaryService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ObrasPublicas", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Public Info", Version = "v1" });
             });
         }
 

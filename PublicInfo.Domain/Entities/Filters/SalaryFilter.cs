@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PublicInfo.Domain.Entities.Filters
 {
-    public class SalariosAutoridadesFilter
+    public class SalaryFilter
     {
         public int? Year { get; set; }
         public int? MonthNum { get; set; }

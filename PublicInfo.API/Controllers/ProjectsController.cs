@@ -13,18 +13,18 @@ namespace PublicInfo.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ObrasPublicasController : ControllerBase
+    public class ProjectsController : ControllerBase
     {
         private readonly IGovernmentAPIService service;
-        private readonly IObrasPublicasService obrasPublicasService;
-        public ObrasPublicasController(IGovernmentAPIService service, IObrasPublicasService obrasPublicasService)
+        private readonly IProjectService projectService;
+        public ProjectsController(IGovernmentAPIService service, IProjectService projectService)
         {
             this.service = service;
-            this.obrasPublicasService = obrasPublicasService;
+            this.projectService = projectService;
         }
 
         [HttpGet]
-        public ActionResult<ObrasPublicasResponse> Get([FromQuery] ObrasPublicasFilter filter, [FromQuery] PagedData pagedData)
+        public ActionResult<ProjectResponse> Get([FromQuery] ProjectFilter filter, [FromQuery] PagedData pagedData)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace PublicInfo.API.Controllers
                 pagedData.sidx = string.IsNullOrWhiteSpace(pagedData.sidx) ? "project" : pagedData.sidx;
 
                 string url = service.GetDatasetCsvURL("obras-mapa-inversiones-argentina");
-                var result = obrasPublicasService.Get(url, pagedData, filter);
+                var result = projectService.Get(url, pagedData, filter);
 
                 return Ok(result);
             }

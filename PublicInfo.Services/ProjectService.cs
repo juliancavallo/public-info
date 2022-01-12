@@ -11,11 +11,11 @@ using System.Linq;
 
 namespace PublicInfo.Services
 {
-    public class ObrasPublicasService : IObrasPublicasService
+    public class ProjectService : IProjectService
     {
-        public ObrasPublicasResponse Get(string url, PagedData pagedData, ObrasPublicasFilter filter)
+        public ProjectResponse Get(string url, PagedData pagedData, ProjectFilter filter)
         {
-            var records = Domain.Helpers.CsvHelper.GetAllRecordsFromCsv<ObrasPublicasCsvRecord>(url);
+            var records = Domain.Helpers.CsvHelper.GetAllRecordsFromCsv<ProjectCsvRecord>(url);
 
             if (!string.IsNullOrWhiteSpace(filter.Province))
                 records = records.Where(x => x.NombreProvincia.ToLower().Contains(filter.Province.ToLower()));
@@ -38,20 +38,20 @@ namespace PublicInfo.Services
             if (!string.IsNullOrWhiteSpace(filter.Description))
                 records = records.Where(x => x.DescripicionFisica.Contains(filter.Description) || x.NombreObra.Contains(filter.Description));
 
-            var list = new List<ObrasPublicasResponseItem>();
+            var list = new List<ProjectResponseItem>();
 
             foreach (var item in records)
             {
-                list.Add(new ObrasPublicasResponseItem()
+                list.Add(new ProjectResponseItem()
                 {
-                    Header = new ObrasPublicasHeaderResponse()
+                    Header = new ProjectHeaderResponse()
                     {
                         ProjectName = item.NombreObra,
                         TotalAmount = CurrencyHelper.ParseCurrencyValueToString(item.MontoTotal),
                         Province = item.NombreProvincia,
                         Department = item.NombreDepto,
                     },
-                    Detail = new ObrasPublicasDetailResponse()
+                    Detail = new ProjectDetailResponse()
                     {
                         CurrencyType = item.TipoMoneda,
                         Description = item.DescripicionFisica,
@@ -68,7 +68,7 @@ namespace PublicInfo.Services
             }
 
 
-            return new ObrasPublicasResponse()
+            return new ProjectResponse()
             {
                 Items = 
                     this.Sort(pagedData.sidx, pagedData.sord, list)
@@ -84,33 +84,33 @@ namespace PublicInfo.Services
             return new DateTime(Convert.ToInt32(year), 1, 1);
         }
 
-        private IOrderedEnumerable<ObrasPublicasResponseItem> Sort(string sidx, string sord, List<ObrasPublicasResponseItem> list)
+        private IOrderedEnumerable<ProjectResponseItem> Sort(string sidx, string sord, List<ProjectResponseItem> list)
         {
-            IOrderedEnumerable<ObrasPublicasResponseItem> result;
+            IOrderedEnumerable<ProjectResponseItem> result;
             switch (sidx)
             {
-                case ObrasPublicasSidx.PROJECT:
+                case ProjectSidx.PROJECT:
                     if (sord == "asc")
                         result = list.OrderBy(x => x.Header.ProjectName);
                     else
                         result = list.OrderByDescending(x => x.Header.ProjectName);
                     break;
 
-                case ObrasPublicasSidx.TOTAL_AMOUNT:
+                case ProjectSidx.TOTAL_AMOUNT:
                     if (sord == "asc")
                         result = list.OrderBy(x => decimal.Parse(x.Header.TotalAmount.Replace("$", "").Replace(".", "").Trim()));
                     else
                         result = list.OrderByDescending(x => decimal.Parse(x.Header.TotalAmount.Replace("$", "").Replace(".", "").Trim()));
                     break;
 
-                case ObrasPublicasSidx.DEPARTMENT:
+                case ProjectSidx.DEPARTMENT:
                     if (sord == "asc")
                         result = list.OrderBy(x => x.Header.Department);
                     else
                         result = list.OrderByDescending(x => x.Header.Department);
                     break;
 
-                case ObrasPublicasSidx.PROVINCE:
+                case ProjectSidx.PROVINCE:
                 default:
                     if (sord == "asc")
                         result = list.OrderBy(x => x.Header.Province);

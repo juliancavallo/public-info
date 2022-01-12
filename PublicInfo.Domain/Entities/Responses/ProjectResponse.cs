@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PublicInfo.Domain.Entities.Responses
 {
-    public class ObrasPublicasResponse
+    public class ProjectResponse
     {
-        public List<ObrasPublicasResponseItem> Items { get; set; }
+        public List<ProjectResponseItem> Items { get; set; }
         public int pages { get; set; }
     }
 }

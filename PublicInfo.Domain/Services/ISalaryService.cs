@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace PublicInfo.Domain.Services
 {
-    public interface ISalariosAutoridadesService
+    public interface ISalaryService
     {
-        public List<SalariosAutoridadesResponse> Get(string url, PagedData pagedData, SalariosAutoridadesFilter filter);
+        public List<SalaryResponse> Get(string url, PagedData pagedData, SalaryFilter filter);
     }
 }
