@@ -8,7 +8,6 @@ namespace PublicInfo.Domain.Entities.Filters
 {
     public class SalaryFilter
     {
-        public int? Year { get; set; }
         public int? MonthNum { get; set; }
         public string Section { get; set; }
         public string LastName { get; set; }

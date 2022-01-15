@@ -18,10 +18,10 @@ namespace PublicInfo.Services
             var records = Domain.Helpers.CsvHelper.GetAllRecordsFromCsv<SalaryCsvRecord>(url, System.Text.Encoding.UTF8);
 
             if (!string.IsNullOrWhiteSpace(filter.FirstName))
-                records = records.Where(x => x.Nombre.ToLower().Contains(filter.FirstName.ToLower()));
+                records = records.Where(x => StringHelper.Normalize(x.Nombre).Contains(StringHelper.Normalize(filter.FirstName)));
 
             if (!string.IsNullOrWhiteSpace(filter.LastName))
-                records = records.Where(x => x.Apellido.ToLower().Contains(filter.LastName.ToLower()));
+                records = records.Where(x => StringHelper.Normalize(x.Apellido).Contains(StringHelper.Normalize(filter.LastName)));
 
             if (filter.MinMonthlyWage.HasValue)
                 records = records.Where(x => decimal.Parse(x.Asignacion_Mensual) >= filter.MinMonthlyWage);
@@ -33,13 +33,10 @@ namespace PublicInfo.Services
                 records = records.Where(x => int.Parse(x.NumMes) == filter.MonthNum);
 
             if (!string.IsNullOrWhiteSpace(filter.Position))
-                records = records.Where(x => x.Cargo.ToLower().Contains(filter.Position.ToLower()));
+                records = records.Where(x => StringHelper.Normalize(x.Cargo).Contains(StringHelper.Normalize(filter.Position)));
 
             if(!string.IsNullOrWhiteSpace(filter.Section))
-                records = records.Where(x => x.Juridiccion.ToLower().Contains(filter.Section.ToLower()));
-
-            if(filter.Year.HasValue)
-                records = records.Where(x => int.Parse(x.Ano) == filter.Year);
+                records = records.Where(x => StringHelper.Normalize(x.Juridiccion).Contains(StringHelper.Normalize(filter.Section)));
 
             var list = new List<SalaryResponseItem>();
 

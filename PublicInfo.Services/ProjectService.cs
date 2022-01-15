@@ -18,10 +18,10 @@ namespace PublicInfo.Services
             var records = Domain.Helpers.CsvHelper.GetAllRecordsFromCsv<ProjectCsvRecord>(url, System.Text.Encoding.Latin1);
 
             if (!string.IsNullOrWhiteSpace(filter.Province))
-                records = records.Where(x => x.NombreProvincia.ToLower().Contains(filter.Province.ToLower()));
+                records = records.Where(x => StringHelper.Normalize(x.NombreProvincia).Contains(StringHelper.Normalize(filter.Province)));
 
             if (!string.IsNullOrWhiteSpace(filter.Department))
-                records = records.Where(x => x.NombreDepto.ToLower().Contains(filter.Department.ToLower()));
+                records = records.Where(x => StringHelper.Normalize(x.NombreDepto).Contains(StringHelper.Normalize(filter.Department)));
 
             if (filter.TotalAmountMin.HasValue)
                 records = records.Where(x => decimal.Parse(x.MontoTotal) >= filter.TotalAmountMin.Value);
@@ -36,7 +36,9 @@ namespace PublicInfo.Services
                 records = records.Where(x => ConvertYearToDate(x.FechaFinAnio) <= filter.ToDate);
 
             if (!string.IsNullOrWhiteSpace(filter.Description))
-                records = records.Where(x => x.DescripicionFisica.Contains(filter.Description) || x.NombreObra.Contains(filter.Description));
+                records = records.Where(x => 
+                    StringHelper.Normalize(x.DescripicionFisica).Contains(StringHelper.Normalize(filter.Description)) 
+                || StringHelper.Normalize(x.NombreObra).Contains(StringHelper.Normalize(filter.Description)));
 
             var list = new List<ProjectResponseItem>();
 
