@@ -66,14 +66,16 @@ namespace PublicInfo.Services
                 });
             }
 
+            int pagesCount = (int)Math.Ceiling((double)list.Count / (double)pagedData.size);
+
             return new SalaryResponse()
             {
                 Items = 
                     this.Sort(pagedData.sidx, pagedData.sord, list)
-                    .Skip(pagedData.page * pagedData.size)
+                    .Skip((Math.Min(pagedData.page, pagesCount) - 1) * pagedData.size)
                     .Take(pagedData.size)
                     .ToList(),
-                pages = (int)Math.Ceiling((decimal)(list.Count / pagedData.size))
+                pages = pagesCount
             };
         }
 
